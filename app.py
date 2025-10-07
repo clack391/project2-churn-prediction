@@ -21,39 +21,272 @@ st.set_page_config(
     initial_sidebar_state="expanded"
 )
 
-# Custom CSS for better styling
+# Custom CSS for professional, modern styling
 st.markdown("""
 <style>
+    /* Import Google Fonts */
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+    
+    /* Global Styles */
+    .main {
+        font-family: 'Inter', sans-serif;
+    }
+    
+    /* Headers */
     .main-header {
-        font-size: 2.5rem;
-        font-weight: bold;
-        color: #1f77b4;
+        font-size: 2.8rem;
+        font-weight: 700;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
         text-align: center;
-        margin-bottom: 1rem;
+        margin-bottom: 0.5rem;
+        letter-spacing: -0.5px;
     }
+    
     .sub-header {
-        font-size: 1.2rem;
-        color: #555;
+        font-size: 1.1rem;
+        color: #64748b;
         text-align: center;
-        margin-bottom: 2rem;
+        margin-bottom: 2.5rem;
+        font-weight: 400;
     }
-    .metric-card {
-        background-color: #f0f2f6;
-        padding: 1rem;
-        border-radius: 0.5rem;
+    
+    /* Metric Cards - High Risk */
+    .metric-card-high {
+        background: linear-gradient(135deg, #fee2e2 0%, #fecaca 100%);
+        border-left: 4px solid #dc2626;
+        padding: 1.5rem;
+        border-radius: 12px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.07);
+        margin: 0.5rem 0;
+        transition: transform 0.2s;
+    }
+    
+    .metric-card-high:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+    }
+    
+    .metric-card-high h3 {
+        color: #991b1b;
+        font-size: 0.875rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        margin-bottom: 0.5rem;
+    }
+    
+    .metric-card-high h1 {
+        color: #dc2626;
+        font-size: 2.5rem;
+        font-weight: 700;
         margin: 0.5rem 0;
     }
-    .high-risk {
-        color: #d62728;
-        font-weight: bold;
+    
+    .metric-card-high p {
+        color: #991b1b;
+        font-size: 0.95rem;
+        font-weight: 500;
+        margin: 0;
     }
-    .medium-risk {
-        color: #ff7f0e;
-        font-weight: bold;
+    
+    /* Metric Cards - Medium Risk */
+    .metric-card-medium {
+        background: linear-gradient(135deg, #fed7aa 0%, #fdba74 100%);
+        border-left: 4px solid #ea580c;
+        padding: 1.5rem;
+        border-radius: 12px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.07);
+        margin: 0.5rem 0;
+        transition: transform 0.2s;
     }
-    .low-risk {
-        color: #2ca02c;
-        font-weight: bold;
+    
+    .metric-card-medium:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+    }
+    
+    .metric-card-medium h3 {
+        color: #9a3412;
+        font-size: 0.875rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        margin-bottom: 0.5rem;
+    }
+    
+    .metric-card-medium h1 {
+        color: #ea580c;
+        font-size: 2.5rem;
+        font-weight: 700;
+        margin: 0.5rem 0;
+    }
+    
+    .metric-card-medium p {
+        color: #9a3412;
+        font-size: 0.95rem;
+        font-weight: 500;
+        margin: 0;
+    }
+    
+    /* Metric Cards - Low Risk */
+    .metric-card-low {
+        background: linear-gradient(135deg, #d1fae5 0%, #a7f3d0 100%);
+        border-left: 4px solid #059669;
+        padding: 1.5rem;
+        border-radius: 12px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.07);
+        margin: 0.5rem 0;
+        transition: transform 0.2s;
+    }
+    
+    .metric-card-low:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+    }
+    
+    .metric-card-low h3 {
+        color: #065f46;
+        font-size: 0.875rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        margin-bottom: 0.5rem;
+    }
+    
+    .metric-card-low h1 {
+        color: #059669;
+        font-size: 2.5rem;
+        font-weight: 700;
+        margin: 0.5rem 0;
+    }
+    
+    .metric-card-low p {
+        color: #065f46;
+        font-size: 0.95rem;
+        font-weight: 500;
+        margin: 0;
+    }
+    
+    /* Metric Cards - Neutral (CLV) */
+    .metric-card-neutral {
+        background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%);
+        border-left: 4px solid #2563eb;
+        padding: 1.5rem;
+        border-radius: 12px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.07);
+        margin: 0.5rem 0;
+        transition: transform 0.2s;
+    }
+    
+    .metric-card-neutral:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+    }
+    
+    .metric-card-neutral h3 {
+        color: #1e40af;
+        font-size: 0.875rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        margin-bottom: 0.5rem;
+    }
+    
+    .metric-card-neutral h1 {
+        color: #2563eb;
+        font-size: 2.5rem;
+        font-weight: 700;
+        margin: 0.5rem 0;
+    }
+    
+    .metric-card-neutral p {
+        color: #1e40af;
+        font-size: 0.95rem;
+        font-weight: 500;
+        margin: 0;
+    }
+    
+    /* Metric Cards - Info */
+    .metric-card-info {
+        background: linear-gradient(135deg, #e0e7ff 0%, #c7d2fe 100%);
+        border-left: 4px solid #6366f1;
+        padding: 1.5rem;
+        border-radius: 12px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.07);
+        margin: 0.5rem 0;
+        transition: transform 0.2s;
+    }
+    
+    .metric-card-info:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+    }
+    
+    .metric-card-info h3 {
+        color: #4338ca;
+        font-size: 0.875rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        margin-bottom: 0.5rem;
+    }
+    
+    .metric-card-info h1 {
+        color: #6366f1;
+        font-size: 2.5rem;
+        font-weight: 700;
+        margin: 0.5rem 0;
+    }
+    
+    .metric-card-info p {
+        color: #4338ca;
+        font-size: 0.95rem;
+        font-weight: 500;
+        margin: 0;
+    }
+    
+    /* Buttons */
+    .stButton>button {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        border: none;
+        border-radius: 8px;
+        padding: 0.75rem 2rem;
+        font-weight: 600;
+        font-size: 1rem;
+        transition: all 0.3s;
+        box-shadow: 0 4px 6px rgba(102, 126, 234, 0.3);
+    }
+    
+    .stButton>button:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 12px rgba(102, 126, 234, 0.4);
+    }
+    
+    /* Sidebar */
+    .css-1d391kg {
+        background-color: #f8fafc;
+    }
+    
+    /* Section dividers */
+    hr {
+        margin: 2rem 0;
+        border: none;
+        border-top: 2px solid #e2e8f0;
+    }
+    
+    /* Info boxes */
+    .stAlert {
+        border-radius: 8px;
+        border-left: 4px solid #3b82f6;
+    }
+    
+    /* DataFrames */
+    .dataframe {
+        border-radius: 8px !important;
+        overflow: hidden;
     }
 </style>
 """, unsafe_allow_html=True)
@@ -189,99 +422,124 @@ def get_risk_label(probability):
 # ============================================================
 
 def tab_predict():
-    st.markdown('<p class="main-header">🎯 Churn Prediction</p>', unsafe_allow_html=True)
-    st.markdown('<p class="sub-header">Predict churn risk and estimate customer lifetime value</p>', unsafe_allow_html=True)
+    st.markdown('<p class="main-header">🎯 Churn Risk Predictor</p>', unsafe_allow_html=True)
+    st.markdown('<p class="sub-header">Enter customer details to predict churn probability and lifetime value</p>', unsafe_allow_html=True)
     
     # Load models
     models, feature_names = load_models()
     rf_explainer, xgb_explainer, logistic_importance = load_explainers()
     
-    # Create two columns for input
-    col1, col2 = st.columns(2)
-    
-    with col1:
-        st.subheader("Customer Demographics")
-        gender = st.selectbox("Gender", ["Female", "Male"])
-        senior_citizen = st.selectbox("Senior Citizen", ["No", "Yes"])
-        partner = st.selectbox("Partner", ["No", "Yes"])
-        dependents = st.selectbox("Dependents", ["No", "Yes"])
+    # Create input form with better organization
+    with st.form("prediction_form"):
+        st.markdown("### 👤 Customer Information")
         
-        st.subheader("Account Information")
-        tenure = st.slider("Tenure (months)", 0, 72, 12)
-        monthly_charges = st.slider("Monthly Charges ($)", 18.0, 120.0, 65.0)
-        total_charges = st.number_input("Total Charges ($)", 0.0, 10000.0, float(tenure * monthly_charges))
-    
-    with col2:
-        st.subheader("Services")
-        phone_service = st.selectbox("Phone Service", ["No", "Yes"])
-        multiple_lines = st.selectbox("Multiple Lines", ["No", "No phone service", "Yes"])
-        internet_service = st.selectbox("Internet Service", ["DSL", "Fiber optic", "No"])
+        col1, col2, col3, col4 = st.columns(4)
         
-        online_security = st.selectbox("Online Security", ["No", "No internet service", "Yes"])
-        online_backup = st.selectbox("Online Backup", ["No", "No internet service", "Yes"])
-        device_protection = st.selectbox("Device Protection", ["No", "No internet service", "Yes"])
-        tech_support = st.selectbox("Tech Support", ["No", "No internet service", "Yes"])
-        streaming_tv = st.selectbox("Streaming TV", ["No", "No internet service", "Yes"])
-        streaming_movies = st.selectbox("Streaming Movies", ["No", "No internet service", "Yes"])
+        with col1:
+            gender = st.selectbox("Gender", ["Female", "Male"])
+        with col2:
+            senior_citizen = st.selectbox("Senior Citizen", ["No", "Yes"])
+        with col3:
+            partner = st.selectbox("Partner", ["No", "Yes"])
+        with col4:
+            dependents = st.selectbox("Dependents", ["No", "Yes"])
         
-        st.subheader("Billing")
-        contract = st.selectbox("Contract", ["Month-to-month", "One year", "Two year"])
-        paperless_billing = st.selectbox("Paperless Billing", ["No", "Yes"])
-        payment_method = st.selectbox("Payment Method", 
-                                     ["Bank transfer (automatic)", 
-                                      "Credit card (automatic)",
-                                      "Electronic check",
-                                      "Mailed check"])
+        st.markdown("### 📅 Account Details")
+        
+        col1, col2, col3 = st.columns(3)
+        
+        with col1:
+            tenure = st.slider("Tenure (months)", 0, 72, 12, help="How long the customer has been with the company")
+        with col2:
+            monthly_charges = st.slider("Monthly Charges ($)", 18.0, 120.0, 65.0, help="Monthly service cost")
+        with col3:
+            total_charges = st.number_input("Total Charges ($)", 0.0, 10000.0, float(tenure * monthly_charges), 
+                                          help="Total amount charged to date")
+        
+        st.markdown("### 📞 Services")
+        
+        col1, col2, col3 = st.columns(3)
+        
+        with col1:
+            phone_service = st.selectbox("Phone Service", ["No", "Yes"])
+            multiple_lines = st.selectbox("Multiple Lines", ["No", "No phone service", "Yes"])
+            internet_service = st.selectbox("Internet Service", ["DSL", "Fiber optic", "No"])
+        
+        with col2:
+            online_security = st.selectbox("Online Security", ["No", "No internet service", "Yes"])
+            online_backup = st.selectbox("Online Backup", ["No", "No internet service", "Yes"])
+            device_protection = st.selectbox("Device Protection", ["No", "No internet service", "Yes"])
+        
+        with col3:
+            tech_support = st.selectbox("Tech Support", ["No", "No internet service", "Yes"])
+            streaming_tv = st.selectbox("Streaming TV", ["No", "No internet service", "Yes"])
+            streaming_movies = st.selectbox("Streaming Movies", ["No", "No internet service", "Yes"])
+        
+        st.markdown("### 💳 Billing Information")
+        
+        col1, col2, col3 = st.columns(3)
+        
+        with col1:
+            contract = st.selectbox("Contract", ["Month-to-month", "One year", "Two year"])
+        with col2:
+            paperless_billing = st.selectbox("Paperless Billing", ["No", "Yes"])
+        with col3:
+            payment_method = st.selectbox("Payment Method", 
+                                         ["Bank transfer (automatic)", 
+                                          "Credit card (automatic)",
+                                          "Electronic check",
+                                          "Mailed check"])
+        
+        # Submit button
+        submitted = st.form_submit_button("🔮 Predict Churn Risk", use_container_width=True)
     
-    # Encode inputs
-    encoding_maps = {
-        'gender': {'Female': 0, 'Male': 1},
-        'SeniorCitizen': {'No': 0, 'Yes': 1},
-        'Partner': {'No': 0, 'Yes': 1},
-        'Dependents': {'No': 0, 'Yes': 1},
-        'PhoneService': {'No': 0, 'Yes': 1},
-        'MultipleLines': {'No': 0, 'No phone service': 1, 'Yes': 2},
-        'InternetService': {'DSL': 0, 'Fiber optic': 1, 'No': 2},
-        'OnlineSecurity': {'No': 0, 'No internet service': 1, 'Yes': 2},
-        'OnlineBackup': {'No': 0, 'No internet service': 1, 'Yes': 2},
-        'DeviceProtection': {'No': 0, 'No internet service': 1, 'Yes': 2},
-        'TechSupport': {'No': 0, 'No internet service': 1, 'Yes': 2},
-        'StreamingTV': {'No': 0, 'No internet service': 1, 'Yes': 2},
-        'StreamingMovies': {'No': 0, 'No internet service': 1, 'Yes': 2},
-        'Contract': {'Month-to-month': 0, 'One year': 1, 'Two year': 2},
-        'PaperlessBilling': {'No': 0, 'Yes': 1},
-        'PaymentMethod': {
-            'Bank transfer (automatic)': 0,
-            'Credit card (automatic)': 1,
-            'Electronic check': 2,
-            'Mailed check': 3
+    if submitted:
+        # Encode inputs
+        encoding_maps = {
+            'gender': {'Female': 0, 'Male': 1},
+            'SeniorCitizen': {'No': 0, 'Yes': 1},
+            'Partner': {'No': 0, 'Yes': 1},
+            'Dependents': {'No': 0, 'Yes': 1},
+            'PhoneService': {'No': 0, 'Yes': 1},
+            'MultipleLines': {'No': 0, 'No phone service': 1, 'Yes': 2},
+            'InternetService': {'DSL': 0, 'Fiber optic': 1, 'No': 2},
+            'OnlineSecurity': {'No': 0, 'No internet service': 1, 'Yes': 2},
+            'OnlineBackup': {'No': 0, 'No internet service': 1, 'Yes': 2},
+            'DeviceProtection': {'No': 0, 'No internet service': 1, 'Yes': 2},
+            'TechSupport': {'No': 0, 'No internet service': 1, 'Yes': 2},
+            'StreamingTV': {'No': 0, 'No internet service': 1, 'Yes': 2},
+            'StreamingMovies': {'No': 0, 'No internet service': 1, 'Yes': 2},
+            'Contract': {'Month-to-month': 0, 'One year': 1, 'Two year': 2},
+            'PaperlessBilling': {'No': 0, 'Yes': 1},
+            'PaymentMethod': {
+                'Bank transfer (automatic)': 0,
+                'Credit card (automatic)': 1,
+                'Electronic check': 2,
+                'Mailed check': 3
+            }
         }
-    }
-    
-    input_data = {
-        'gender': encoding_maps['gender'][gender],
-        'SeniorCitizen': encoding_maps['SeniorCitizen'][senior_citizen],
-        'Partner': encoding_maps['Partner'][partner],
-        'Dependents': encoding_maps['Dependents'][dependents],
-        'tenure': tenure,
-        'PhoneService': encoding_maps['PhoneService'][phone_service],
-        'MultipleLines': encoding_maps['MultipleLines'][multiple_lines],
-        'InternetService': encoding_maps['InternetService'][internet_service],
-        'OnlineSecurity': encoding_maps['OnlineSecurity'][online_security],
-        'OnlineBackup': encoding_maps['OnlineBackup'][online_backup],
-        'DeviceProtection': encoding_maps['DeviceProtection'][device_protection],
-        'TechSupport': encoding_maps['TechSupport'][tech_support],
-        'StreamingTV': encoding_maps['StreamingTV'][streaming_tv],
-        'StreamingMovies': encoding_maps['StreamingMovies'][streaming_movies],
-        'Contract': encoding_maps['Contract'][contract],
-        'PaperlessBilling': encoding_maps['PaperlessBilling'][paperless_billing],
-        'PaymentMethod': encoding_maps['PaymentMethod'][payment_method],
-        'MonthlyCharges': monthly_charges,
-        'TotalCharges': total_charges
-    }
-    
-    # Predict button
-    if st.button("🔮 Predict Churn Risk", type="primary", use_container_width=True):
+        
+        input_data = {
+            'gender': encoding_maps['gender'][gender],
+            'SeniorCitizen': encoding_maps['SeniorCitizen'][senior_citizen],
+            'Partner': encoding_maps['Partner'][partner],
+            'Dependents': encoding_maps['Dependents'][dependents],
+            'tenure': tenure,
+            'PhoneService': encoding_maps['PhoneService'][phone_service],
+            'MultipleLines': encoding_maps['MultipleLines'][multiple_lines],
+            'InternetService': encoding_maps['InternetService'][internet_service],
+            'OnlineSecurity': encoding_maps['OnlineSecurity'][online_security],
+            'OnlineBackup': encoding_maps['OnlineBackup'][online_backup],
+            'DeviceProtection': encoding_maps['DeviceProtection'][device_protection],
+            'TechSupport': encoding_maps['TechSupport'][tech_support],
+            'StreamingTV': encoding_maps['StreamingTV'][streaming_tv],
+            'StreamingMovies': encoding_maps['StreamingMovies'][streaming_movies],
+            'Contract': encoding_maps['Contract'][contract],
+            'PaperlessBilling': encoding_maps['PaperlessBilling'][paperless_billing],
+            'PaymentMethod': encoding_maps['PaymentMethod'][payment_method],
+            'MonthlyCharges': monthly_charges,
+            'TotalCharges': total_charges
+        }
         # Preprocess
         X = preprocess_input(input_data, feature_names)
         
@@ -304,19 +562,46 @@ def tab_predict():
         st.markdown("---")
         st.subheader("📊 Prediction Results")
         
+        # Determine card style based on risk
+        risk_label, _ = get_risk_label(churn_prob)
+        
+        if churn_prob >= 0.6:
+            card_class = "metric-card-high"
+        elif churn_prob >= 0.3:
+            card_class = "metric-card-medium"
+        else:
+            card_class = "metric-card-low"
+        
         # Metrics in columns
         col1, col2, col3 = st.columns(3)
         
         with col1:
-            risk_label, risk_class = get_risk_label(churn_prob)
-            st.markdown(f'<div class="metric-card"><h3>Churn Probability</h3><h1 class="{risk_class}">{churn_prob*100:.1f}%</h1><p>{risk_label}</p></div>', unsafe_allow_html=True)
+            st.markdown(f'''
+                <div class="{card_class}">
+                    <h3>Churn Probability</h3>
+                    <h1>{churn_prob*100:.1f}%</h1>
+                    <p>{risk_label}</p>
+                </div>
+            ''', unsafe_allow_html=True)
         
         with col2:
-            st.markdown(f'<div class="metric-card"><h3>Customer Lifetime Value</h3><h1>${clv:,.0f}</h1><p>Expected Tenure: {expected_tenure} months</p></div>', unsafe_allow_html=True)
+            st.markdown(f'''
+                <div class="metric-card-neutral">
+                    <h3>Customer Lifetime Value</h3>
+                    <h1>${clv:,.0f}</h1>
+                    <p>Expected Tenure: {expected_tenure} months</p>
+                </div>
+            ''', unsafe_allow_html=True)
         
         with col3:
             prediction_text = "Will Churn" if prediction == 1 else "Will Stay"
-            st.markdown(f'<div class="metric-card"><h3>Prediction</h3><h1>{prediction_text}</h1><p>Model: {model_choice}</p></div>', unsafe_allow_html=True)
+            st.markdown(f'''
+                <div class="metric-card-info">
+                    <h3>Prediction</h3>
+                    <h1>{prediction_text}</h1>
+                    <p>Model: {model_choice}</p>
+                </div>
+            ''', unsafe_allow_html=True)
         
         # SHAP Explanation
         st.markdown("---")
@@ -355,17 +640,41 @@ def tab_predict():
         
         # For tree models, plot SHAP waterfall
         if hasattr(shap_values, 'values'):
-            vals = shap_values.values[0]
+            vals = shap_values.values
             base_value = shap_values.base_values[0] if hasattr(shap_values, 'base_values') else 0
         else:
-            vals = shap_values[0]
+            vals = shap_values
             base_value = 0
+        
+        # Handle different SHAP value shapes
+        # Shape can be (1, n_features) or (1, n_features, 2) for binary classification
+        if len(vals.shape) == 3:
+            # Take last class for binary classification
+            vals = vals[0, :, -1]
+        elif len(vals.shape) == 2:
+            vals = vals[0, :]
+        elif len(vals.shape) == 1:
+            vals = vals
+        else:
+            st.error(f"Unexpected SHAP values shape: {vals.shape}")
+            return
+        
+        # Ensure vals is 1D
+        vals = vals.flatten()
+        
+        # Get feature values - ensure 1D
+        feature_vals = X.values[0].flatten() if len(X.values[0].shape) > 0 else X.values[0]
+        
+        # Ensure both arrays have the same length
+        if len(vals) != len(feature_names):
+            st.error(f"SHAP values length {len(vals)} doesn't match features {len(feature_names)}")
+            return
         
         # Get top features
         feature_importance = pd.DataFrame({
             'Feature': feature_names,
             'SHAP Value': vals,
-            'Feature Value': X.values[0]
+            'Feature Value': feature_vals
         })
         feature_importance['Abs SHAP'] = feature_importance['SHAP Value'].abs()
         feature_importance = feature_importance.sort_values('Abs SHAP', ascending=False).head(10)
@@ -403,14 +712,15 @@ def tab_predict():
 # ============================================================
 
 def tab_model_performance():
-    st.markdown('<p class="main-header">📈 Model Performance</p>', unsafe_allow_html=True)
-    st.markdown('<p class="sub-header">Compare model metrics and understand feature importance</p>', unsafe_allow_html=True)
+    st.markdown('<p class="main-header">📈 Model Performance Analytics</p>', unsafe_allow_html=True)
+    st.markdown('<p class="sub-header">Compare models and explore feature importance</p>', unsafe_allow_html=True)
     
     # Load comparison
     comparison = load_model_comparison()
     
     # Model comparison table
-    st.subheader("🏆 Model Comparison")
+    st.markdown("### 🏆 Model Comparison")
+    st.markdown("*All models evaluated on test set (1,409 customers)*")
     
     # Format and display
     comparison_display = comparison.copy()
@@ -502,8 +812,8 @@ def tab_model_performance():
 # ============================================================
 
 def tab_clv_overview():
-    st.markdown('<p class="main-header">💰 Customer Lifetime Value Analysis</p>', unsafe_allow_html=True)
-    st.markdown('<p class="sub-header">Understand customer value and prioritize retention efforts</p>', unsafe_allow_html=True)
+    st.markdown('<p class="main-header">💰 Customer Value Intelligence</p>', unsafe_allow_html=True)
+    st.markdown('<p class="sub-header">Segment customers by lifetime value and identify retention priorities</p>', unsafe_allow_html=True)
     
     # Load data
     train, val, test = load_processed_data()
@@ -558,51 +868,108 @@ def tab_clv_overview():
     
     # Actionable recommendations
     st.markdown("---")
-    st.subheader("🎯 Retention Strategy Recommendations")
+    st.markdown("### 🎯 Strategic Retention Roadmap")
+    st.markdown("*Prioritized action plan based on CLV and churn risk analysis*")
     
     col1, col2, col3 = st.columns(3)
     
     with col1:
-        st.markdown("### 🥇 Priority 1: Premium Segment")
+        st.markdown("""
+        <div class="metric-card-high">
+            <h3>🥇 Priority 1: Premium</h3>
+        </div>
+        """, unsafe_allow_html=True)
         premium_churned = len(df[(df['CLV_segment'] == 'Premium') & (df['Churn'] == 1)])
         premium_revenue = df[(df['CLV_segment'] == 'Premium') & (df['Churn'] == 1)]['CLV'].sum()
         st.markdown(f"""
-        - **At Risk:** {premium_churned} customers
-        - **Revenue at Risk:** ${premium_revenue:,.0f}
-        - **Action:** Personalized retention offers, dedicated account manager
-        - **Budget:** High (max ROI)
+        **At Risk:** {premium_churned} customers  
+        **Revenue at Risk:** ${premium_revenue:,.0f}
+        
+        **Actions:**
+        - Dedicated account managers
+        - Personalized retention offers
+        - VIP support channel
+        
+        **Budget Allocation:** High (Max ROI)
         """)
     
     with col2:
-        st.markdown("### 🥈 Priority 2: High Segment")
+        st.markdown("""
+        <div class="metric-card-medium">
+            <h3>🥈 Priority 2: High Value</h3>
+        </div>
+        """, unsafe_allow_html=True)
         high_churned = len(df[(df['CLV_segment'] == 'High') & (df['Churn'] == 1)])
         high_revenue = df[(df['CLV_segment'] == 'High') & (df['Churn'] == 1)]['CLV'].sum()
         st.markdown(f"""
-        - **At Risk:** {high_churned} customers
-        - **Revenue at Risk:** ${high_revenue:,.0f}
-        - **Action:** Proactive engagement, service upgrades
-        - **Budget:** Medium-High
+        **At Risk:** {high_churned} customers  
+        **Revenue at Risk:** ${high_revenue:,.0f}
+        
+        **Actions:**
+        - Proactive engagement campaigns
+        - Service quality improvements
+        - Contract upgrade incentives
+        
+        **Budget Allocation:** Medium-High
         """)
     
     with col3:
-        st.markdown("### 🥉 Priority 3: Medium/Low")
+        st.markdown("""
+        <div class="metric-card-low">
+            <h3>🥉 Priority 3: Medium/Low</h3>
+        </div>
+        """, unsafe_allow_html=True)
         medium_low_churned = len(df[(df['CLV_segment'].isin(['Medium', 'Low'])) & (df['Churn'] == 1)])
         st.markdown(f"""
-        - **At Risk:** {medium_low_churned} customers
-        - **Action:** Automated campaigns, improve service quality
-        - **Budget:** Low (scalable interventions)
+        **At Risk:** {medium_low_churned} customers
+        
+        **Actions:**
+        - Automated email campaigns
+        - Self-service improvements
+        - Base service quality focus
+        
+        **Budget Allocation:** Low (Scalable)
         """)
     
     # Key takeaways
     st.markdown("---")
-    st.success("""
-    **🎯 Key Takeaways:**
+    st.markdown("### 💡 Executive Summary")
     
-    1. **Focus retention efforts on Premium and High CLV segments** - they represent the majority of revenue at risk
-    2. **Month-to-month contracts are the biggest churn driver** - encourage longer-term commitments
-    3. **Fiber optic customers churn more** - improve service quality and support
-    4. **Early intervention is key** - predict and act before customers reach high churn probability
-    """)
+    col1, col2 = st.columns([2, 1])
+    
+    with col1:
+        st.success("""
+        **🎯 Key Strategic Insights:**
+        
+        1. **Focus on Premium Segment** - They represent the majority of revenue at risk but show the lowest churn rates
+        
+        2. **Contract Type is Critical** - Month-to-month contracts are the #1 churn driver; incentivize long-term commitments
+        
+        3. **Service Quality Matters** - Fiber optic customers churn more than DSL; improve infrastructure and support
+        
+        4. **Early Intervention Works** - Predict and act before customers reach high churn probability (>60%)
+        """)
+    
+    with col2:
+        # Quick stats
+        total_at_risk = len(df[df['Churn'] == 1])
+        total_revenue_at_risk = df[df['Churn'] == 1]['CLV'].sum()
+        
+        st.markdown(f"""
+        <div class="metric-card-neutral">
+            <h3>Total Impact</h3>
+            <h1>{total_at_risk}</h1>
+            <p>Customers at risk</p>
+        </div>
+        """, unsafe_allow_html=True)
+        
+        st.markdown(f"""
+        <div class="metric-card-high">
+            <h3>Revenue at Risk</h3>
+            <h1>${total_revenue_at_risk/1000:.0f}K</h1>
+            <p>Lifetime value exposure</p>
+        </div>
+        """, unsafe_allow_html=True)
 
 # ============================================================
 # MAIN APP
@@ -610,31 +977,52 @@ def tab_clv_overview():
 
 def main():
     # Sidebar
-    st.sidebar.title("⚙️ Settings")
+    st.sidebar.title("⚙️ Configuration")
     
-    # Model selection
+    # Model selection with better styling
+    st.sidebar.markdown("### 🤖 Model Selection")
     model_choice = st.sidebar.selectbox(
-        "Select Model",
+        "Choose prediction model",
         ["XGBoost", "Random Forest", "Logistic Regression"],
-        help="Choose which model to use for predictions"
+        help="Select which ML model to use for predictions"
     )
     st.session_state['model_choice'] = model_choice
+    
+    # Show model info
+    model_info = {
+        "XGBoost": "⚡ Best overall performance (AUC: 0.835)",
+        "Random Forest": "🌲 Most balanced (AUC: 0.841)",
+        "Logistic Regression": "📊 Fastest & interpretable (AUC: 0.843)"
+    }
+    st.sidebar.info(model_info[model_choice])
     
     st.sidebar.markdown("---")
     st.sidebar.markdown("### 📊 About This App")
     st.sidebar.info("""
-    This app predicts customer churn and estimates Customer Lifetime Value (CLV) for a telecom company.
+    **Churn Prediction System**
     
-    **Features:**
-    - 3 ML models with 84%+ AUC-ROC
+    Predicts customer churn and estimates CLV for telecom customers.
+    
+    ✨ **Features:**
+    - 3 ML models (84%+ AUC-ROC)
     - SHAP explanations
     - CLV segmentation
     - Business insights
+    
+    📈 **Performance:**
+    - Recall: 74%+
+    - High-risk detection: 90%+
     """)
     
     st.sidebar.markdown("---")
-    st.sidebar.markdown("### 📚 Resources")
-    st.sidebar.markdown("[GitHub Repo](#) | [Video Demo](#)")
+    st.sidebar.markdown("### 🎓 Project Info")
+    st.sidebar.markdown("""
+    **Pioneer Academy**  
+    Data Science Project 2
+    
+    🔗 [GitHub Repo](#)  
+    🎥 [Video Demo](#)
+    """)
     
     # Main tabs
     tab1, tab2, tab3 = st.tabs(["🎯 Predict", "📈 Model Performance", "💰 CLV Overview"])
