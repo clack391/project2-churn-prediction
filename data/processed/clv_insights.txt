@@ -1,0 +1,9 @@
+BUSINESS INSIGHTS FROM CLV ANALYSIS
+============================================================
+
+1. 📊 **Inverse CLV-Churn Relationship**: Low-value customers churn at 39.4% while Premium customers churn at only 13.6%. High-value customers show stronger loyalty.
+
+2. 💰 **Premium Revenue at Risk**: 239 Premium customers (13.6%) represent $1,585,035 in lifetime value at risk. Retention efforts should prioritize this segment for maximum ROI.
+
+3. 🎯 **Strategic Focus**: Premium customers are worth 15.6x more than Low-value customers ($6,907 vs $442). Even small improvements in Premium retention yield significant returns.
+
