@@ -269,7 +269,7 @@ This project is for educational purposes as part of Pioneer Academy's Data Scien
 
 ## 📧 Contact
 
-[Your Name]  
-[Your Email]  
-[Your LinkedIn]  
-[Your GitHub]
+[Precious Onotu]  
+[clack391@gmail.com]  
+[https://www.linkedin.com/in/precious-onotu-aba9b6312]  
+[https://github.com/clack391/project2-churn-prediction]
