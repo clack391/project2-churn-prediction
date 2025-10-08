@@ -1021,7 +1021,7 @@ def main():
     Data Science Project 2
     
     🔗 [GitHub Repo](https://github.com/clack391/project2-churn-prediction.git)  
-    🎥 [Video Demo](#)
+    🎥 [Video Presentation](#)
     """)
     
     # Main tabs
