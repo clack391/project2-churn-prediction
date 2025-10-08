@@ -1020,7 +1020,7 @@ def main():
     **Pioneer Academy**  
     Data Science Project 2
     
-    🔗 [GitHub Repo](#)  
+    🔗 [GitHub Repo](https://github.com/clack391/project2-churn-prediction.git)  
     🎥 [Video Demo](#)
     """)
     
