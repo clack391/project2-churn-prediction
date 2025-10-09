@@ -7,12 +7,12 @@ fiber_optic,7.0,3.0,4.0,4.666666666666667
 no_online_security,,5.0,,5.0
 services_count,5.0,,,5.0
 monthly_to_total_ratio,,,6.0,6.0
-internet_no_tech_support,,6.0,,6.0
 TotalCharges,4.0,9.0,5.0,6.0
 PhoneService,6.0,,,6.0
+internet_no_tech_support,,6.0,,6.0
 OnlineSecurity,,8.0,7.0,7.5
 PaymentMethod,,,8.0,8.0
 tenure_bucket,8.0,10.0,,9.0
 PaperlessBilling,9.0,,9.0,9.0
-TechSupport,,,10.0,10.0
 MultipleLines,10.0,,,10.0
+TechSupport,,,10.0,10.0

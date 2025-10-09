@@ -3,8 +3,8 @@
 🎯 **Business Problem**: SaaS companies lose 5-7% of revenue annually to customer churn. This project predicts which customers are likely to churn and estimates their Customer Lifetime Value (CLV) to prioritize retention efforts effectively.
 
 ## 🚀 Live Demo
-**App URL**: [Your Streamlit Cloud URL]  
-**Video Demo**: [Your YouTube/Loom Link]
+**App URL**: [https://clack391-project2-churn-prediction-app-yx7okn.streamlit.app/]  
+**Video Demo**: [My YouTube/Loom Link]
 
 ---
 

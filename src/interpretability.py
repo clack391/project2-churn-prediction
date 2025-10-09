@@ -71,10 +71,35 @@ def plot_global_feature_importance(shap_values, X_sample, feature_names, model_n
     """Plot global feature importance using SHAP"""
     print(f"\nPlotting global feature importance for {model_name}...")
     
-    # Summary plot (bar)
+    # Get mean absolute SHAP values for ranking
+    if hasattr(shap_values, 'values'):
+        vals = shap_values.values
+    else:
+        vals = shap_values
+    
+    # Handle different shapes
+    if len(vals.shape) == 3:
+        vals = vals[:, :, -1]  # Take positive class for binary classification
+    
+    # Compute mean absolute values
+    mean_abs_shap = np.abs(vals).mean(axis=0)
+    
+    # Create importance dataframe
+    importance_df = pd.DataFrame({
+        'feature': feature_names,
+        'importance': mean_abs_shap
+    }).sort_values('importance', ascending=True)  # Ascending for horizontal bar plot
+    
+    # Take top 15
+    top_features = importance_df.tail(15)
+    
+    # Summary plot (bar) - manual creation for better control
     plt.figure(figsize=(10, 8))
-    shap.summary_plot(shap_values, X_sample, plot_type="bar", show=False, max_display=15)
+    plt.barh(range(len(top_features)), top_features['importance'], color='steelblue', alpha=0.7)
+    plt.yticks(range(len(top_features)), top_features['feature'])
+    plt.xlabel('Mean |SHAP Value| (average impact on model output)', fontsize=11)
     plt.title(f'{model_name} - Feature Importance (SHAP)', fontsize=14, fontweight='bold')
+    plt.grid(axis='x', alpha=0.3)
     plt.tight_layout()
     
     os.makedirs(output_dir, exist_ok=True)
@@ -85,14 +110,29 @@ def plot_global_feature_importance(shap_values, X_sample, feature_names, model_n
     
     # Summary plot (beeswarm) - shows feature values
     plt.figure(figsize=(10, 8))
-    shap.summary_plot(shap_values, X_sample, show=False, max_display=15)
-    plt.title(f'{model_name} - SHAP Summary Plot', fontsize=14, fontweight='bold')
-    plt.tight_layout()
-    
-    filename = f'shap_summary_{model_name.lower().replace(" ", "_")}.png'
-    plt.savefig(os.path.join(output_dir, filename), dpi=300, bbox_inches='tight')
-    print(f"Saved: {output_dir}/{filename}")
-    plt.close()
+    try:
+        # Try to use shap.summary_plot
+        if hasattr(shap_values, 'values'):
+            shap.summary_plot(shap_values, X_sample, show=False, max_display=15)
+        else:
+            # For older SHAP format, create explanation object
+            if isinstance(shap_values, list):
+                # Binary classification - take positive class
+                vals_to_plot = shap_values[1] if len(shap_values) > 1 else shap_values[0]
+            else:
+                vals_to_plot = shap_values
+            shap.summary_plot(vals_to_plot, X_sample, show=False, max_display=15, plot_type="dot")
+        
+        plt.title(f'{model_name} - SHAP Summary Plot', fontsize=14, fontweight='bold')
+        plt.tight_layout()
+        
+        filename = f'shap_summary_{model_name.lower().replace(" ", "_")}.png'
+        plt.savefig(os.path.join(output_dir, filename), dpi=300, bbox_inches='tight')
+        print(f"Saved: {output_dir}/{filename}")
+        plt.close()
+    except Exception as e:
+        print(f"Warning: Could not create beeswarm plot: {e}")
+        plt.close()
 
 def plot_logistic_importance(feature_importance, output_dir='data/processed'):
     """Plot feature importance for Logistic Regression"""
@@ -166,13 +206,24 @@ def compare_feature_importance_across_models(logistic_importance, rf_shap_values
     print(f"RF mean importance shape: {rf_mean_importance.shape}")
     print(f"XGB mean importance shape: {xgb_mean_importance.shape}")
     
-    # Ensure 1D
-    rf_mean_importance = rf_mean_importance.flatten()
-    xgb_mean_importance = xgb_mean_importance.flatten()
+    # Ensure 1D - flatten completely
+    rf_mean_importance = np.atleast_1d(rf_mean_importance).flatten()
+    xgb_mean_importance = np.atleast_1d(xgb_mean_importance).flatten()
+    
+    print(f"After flatten - RF: {rf_mean_importance.shape}, XGB: {xgb_mean_importance.shape}")
     
     # Final check - ensure lengths match
-    assert len(rf_mean_importance) == len(feature_names), f"RF importance length {len(rf_mean_importance)} != features {len(feature_names)}"
-    assert len(xgb_mean_importance) == len(feature_names), f"XGB importance length {len(xgb_mean_importance)} != features {len(feature_names)}"
+    if len(rf_mean_importance) != len(feature_names):
+        print(f"ERROR: RF importance length {len(rf_mean_importance)} != features {len(feature_names)}")
+        print(f"RF importance type: {type(rf_mean_importance)}")
+        print(f"RF importance: {rf_mean_importance}")
+        # Skip comparison if there's a mismatch
+        return None
+    
+    if len(xgb_mean_importance) != len(feature_names):
+        print(f"ERROR: XGB importance length {len(xgb_mean_importance)} != features {len(feature_names)}")
+        # Skip comparison if there's a mismatch
+        return None
     
     rf_importance = pd.DataFrame({
         'feature': feature_names,
@@ -314,8 +365,9 @@ def run_interpretability_pipeline():
         logistic_importance, rf_shap_values, xgb_shap_values, X_sample, feature_names
     )
     
-    # 7. Demonstrate local explanation
-    demonstrate_local_explanation(xgb_model, xgb_explainer, X_sample, 0, "XGBoost", feature_names)
+    # Only proceed if comparison was successful
+    if comparison is not None:
+        demonstrate_local_explanation(xgb_model, xgb_explainer, X_sample, 0, "XGBoost", feature_names)
     
     # 8. Save explainers for app
     save_explainers(rf_explainer, xgb_explainer, logistic_importance)
